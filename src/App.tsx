@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
 // Animation hook for cards
@@ -44,13 +44,11 @@ function App() {
 function LearningPathModal({ 
   isOpen, 
   onClose, 
-  title,
-  description 
+  title
 }: { 
   isOpen: boolean; 
   onClose: () => void;
   title: string;
-  description: string;
 }) {
   if (!isOpen) return null;
 
@@ -108,9 +106,8 @@ function LearningPathModal({
 }
 
 function HomePage() {
-  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
-  const [activeModal, setActiveModal] = useState<{ title: string; description: string } | null>(null);
+  const [activeModal, setActiveModal] = useState<{ title: string } | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const whyChooseRef = useRef<HTMLDivElement>(null);
   const learningPathsRef = useRef<HTMLDivElement>(null);
@@ -305,7 +302,7 @@ function HomePage() {
                   <p className="text-gray-400 mb-3">{path.desc}</p>
                   <button 
                     className="btn-explore"
-                    onClick={() => setActiveModal({ title: path.title, description: path.desc })}
+                    onClick={() => setActiveModal({ title: path.title })}
                   >
                     Explore →
                   </button>
@@ -331,7 +328,6 @@ function HomePage() {
           isOpen={!!activeModal}
           onClose={() => setActiveModal(null)}
           title={activeModal.title}
-          description={activeModal.description}
         />
       )}
     </div>
